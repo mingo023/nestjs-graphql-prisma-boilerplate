@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { BaseModel } from '~shares/models/base.model';
+import { BaseModel } from '~cores/models/base.model';
 
 @ObjectType()
 export class UserModel extends BaseModel {

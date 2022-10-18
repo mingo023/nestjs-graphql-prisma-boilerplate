@@ -15,6 +15,7 @@ export enum AppEnvEnums {
 export const env = {
     APP_PORT: process.env.APP_PORT,
     APP_ENV: process.env.APP_ENV as AppEnvEnums,
+    WHITELIST_DOMAINS: process.env.WHITELIST_DOMAINS?.split(',') || [],
     ROOT_PATH: undefined
 };
 

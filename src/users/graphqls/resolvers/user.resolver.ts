@@ -8,7 +8,7 @@ export class UsersResolver {
     constructor(private userService: UserService) {}
 
     @Query(() => [UserModel])
-    async authors(): Promise<User[]> {
+    authors(): Promise<User[]> {
         return this.userService.getUsers();
     }
 }
