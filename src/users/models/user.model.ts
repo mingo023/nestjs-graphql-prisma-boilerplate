@@ -1,13 +1,11 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
+import { BaseModel } from '~shares/models/base.model';
 
 @ObjectType()
-export class UserModel {
-    @Field(() => Int)
-    id: number;
+export class UserModel extends BaseModel {
+    @Field()
+    email?: string;
 
     @Field({ nullable: true })
-    firstName?: string;
-
-    @Field({ nullable: true })
-    lastName?: string;
+    name?: string;
 }

@@ -1,8 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+// eslint-disable-next-line simple-import-sort/imports
+import { env } from '~configs/env.config'; // Should be on top
+import { Bootstrap } from '~configs/bootstrap.config';
+
+env.ROOT_PATH = __dirname;
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    await app.listen(3008);
+    const bootstrap = new Bootstrap();
+    await bootstrap.init();
+    await bootstrap.startApp();
 }
 bootstrap();
