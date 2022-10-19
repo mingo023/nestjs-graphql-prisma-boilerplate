@@ -13,3 +13,12 @@ type UserModel {
 type Query {
   authors: [UserModel!]!
 }
+
+type Mutation {
+  createUser(body: CreateUserDto!): UserModel!
+}
+
+input CreateUserDto {
+  name: String!
+  email: String!
+}

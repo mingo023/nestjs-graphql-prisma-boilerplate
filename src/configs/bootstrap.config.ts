@@ -1,4 +1,4 @@
-import { BadRequestException, INestApplication } from '@nestjs/common';
+import { BadRequestException, INestApplication, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from '~app.module';
 import { env } from './env.config';
@@ -8,6 +8,10 @@ export class Bootstrap {
 
     async init() {
         this.app = await NestFactory.create(AppModule);
+    }
+
+    setupPipes() {
+        this.app.useGlobalPipes(new ValidationPipe({}));
     }
 
     setupCors() {

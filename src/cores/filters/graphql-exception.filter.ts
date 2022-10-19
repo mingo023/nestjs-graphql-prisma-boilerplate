@@ -1,19 +1,23 @@
-import { HttpException } from '@nestjs/common';
 import { GraphQLError } from 'graphql';
 
 export class GraphQlExceptionFilter {
     formatError(error: GraphQLError) {
-        if (error.extensions?.exception instanceof HttpException) {
-            const exception = error.extensions.exception as HttpException;
-            return {
-                message: exception.message,
-                statusCode: exception.getStatus()
-            };
+        const errorResponse = {
+            message: error.message,
+            code: error.extensions && error.extensions.code,
+            extensions: error.extensions,
+            locations: error.locations,
+            path: error.path
+        };
+
+        if (errorResponse.extensions.exception.stacktrace) {
+            delete errorResponse.extensions.exception.stacktrace;
         }
 
-        return {
-            message: error.message,
-            code: error.extensions.code
-        };
+        if (error.extensions.code === 'INTERNAL_SERVER_ERROR') {
+            errorResponse.message = 'Internal server error';
+        }
+
+        return errorResponse;
     }
 }

@@ -7,6 +7,7 @@ env.ROOT_PATH = __dirname;
 async function bootstrap() {
     const bootstrap = new Bootstrap();
     await bootstrap.init();
+    bootstrap.setupPipes();
     bootstrap.setupCors();
     await bootstrap.startApp();
 }

@@ -1,12 +1,13 @@
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver } from '@nestjs/apollo';
+import { Injectable } from '@nestjs/common';
+import { GqlModuleOptions, GqlOptionsFactory } from '@nestjs/graphql';
 import { DirectiveLocation, GraphQLDirective } from 'graphql';
 import { GraphQlExceptionFilter } from '~cores/filters/graphql-exception.filter';
 
-@Module({
-    imports: [
-        GraphQLModule.forRoot<ApolloDriverConfig>({
+@Injectable()
+export class GraphQLService implements GqlOptionsFactory {
+    async createGqlOptions(): Promise<Record<string, unknown> & GqlModuleOptions> {
+        return {
             driver: ApolloDriver,
             autoSchemaFile: 'schema.gql',
             installSubscriptionHandlers: true,
@@ -19,7 +20,6 @@ import { GraphQlExceptionFilter } from '~cores/filters/graphql-exception.filter'
                     })
                 ]
             }
-        })
-    ]
-})
-export class GraphQLConfigModule {}
+        };
+    }
+}
